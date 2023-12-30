@@ -1,6 +1,6 @@
-// Function to perform BMI calculation on the server
+
 function calculateBMI() {
-    // Client-side validation
+    // validation
     const height = parseFloat(document.getElementById('height').value);
     const weight = parseFloat(document.getElementById('weight').value);
     const age = parseInt(document.getElementById('age').value);
@@ -11,7 +11,7 @@ function calculateBMI() {
         return;
     }
 
-    // Make an AJAX request to the server for BMI calculation
+    // AJAX request for BMI calculation
     const xhr = new XMLHttpRequest();
     xhr.open('POST', '/bmicalculator', true);
     xhr.setRequestHeader('Content-Type', 'application/json');
@@ -25,24 +25,24 @@ function calculateBMI() {
         }
     };
 
-    // Send data to the server
+    // sending data to the server
     xhr.send(JSON.stringify({ height, weight, age, gender }));
 }
 
-// Function to display the BMI result on the page
+
 function displayResult(result) {
     const resultContainer = document.getElementById('resultContainer');
 
-    // Update the result container with the calculated BMI and interpretation
+    
     resultContainer.innerHTML = `
         <p><strong>BMI:</strong> ${result.bmi.toFixed(2)}</p>
         <p><strong>Interpretation:</strong> ${result.interpretation}</p>
     `;
 }
 
-// Add event listener for unit change (imperial or metric)
+
 document.getElementById('unit').addEventListener('change', function () {
     // You can add additional logic here if needed when the unit is changed
 });
 
-// Add any additional event listeners or logic as needed
+
