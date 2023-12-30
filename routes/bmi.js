@@ -1,15 +1,14 @@
 const express = require('express');
 const router = express.Router();
 
-// BMI Calculation Logic
-const calculateBMI = (height, weight, age, gender) => {
-    // Convert height to meters
-    const heightInMeters = height / 100; // Assuming height is in centimeters
 
-    // Calculate BMI
+const calculateBMI = (height, weight, age, gender) => {
+    const heightInMeters = height / 100; //height is in centimeters
+
+    
     const bmi = weight / (heightInMeters * heightInMeters);
 
-    // Interpretation based on WHO categories
+    
     let interpretation = '';
     if (bmi < 18.5) {
         interpretation = 'Underweight';
@@ -24,12 +23,12 @@ const calculateBMI = (height, weight, age, gender) => {
     return { bmi, interpretation };
 };
 
-// Route for serving the home page
+
 router.get('/', (req, res) => {
     res.sendFile('views/index.html', { root: __dirname + '/../' });
 });
 
-// Route for handling BMI calculator requests
+
 router.route('/bmicalculator')
     .get((req, res) => {
         res.sendFile('views/index.html', { root: __dirname + '/../' });
@@ -37,12 +36,12 @@ router.route('/bmicalculator')
     .post((req, res) => {
         const { height, weight, age, gender } = req.body;
         
-        // Validate input (ensure numeric values)
+        // input validation
         if (isNaN(height) || isNaN(weight)) {
             return res.status(400).json({ error: 'Invalid input. Height and weight must be numeric.' });
         }
 
-        // Calculate BMI
+        
         const bmiResult = calculateBMI(height, weight, age, gender);
         res.json(bmiResult);
     });
